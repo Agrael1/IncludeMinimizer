@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<Extern href="stdidcmd.h"/>
+	<Extern href="vsshlids.h"/>
+	<Include href="KnownImageIds.vsct"/>
+	<Include href="VSGlobals.vsct"/>
+
+	<Commands package="IncludeMinimizer">
+		<Groups>
+			<Group guid="IncludeMinimizer" id="IMGroup" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
+			</Group>
+		</Groups>
+
+		<!--This section defines the elements the user can interact with, like a menu command or a button
+		or combo box in a toolbar. -->
+		<Buttons>
+			<Button guid="IncludeMinimizer" id="GenMap" priority="0x0100" type="Button">
+				<Parent guid="IncludeMinimizer" id="IMGroup" />
+				<Icon guid="ImageCatalogGuid" id="StatusInformation" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<CommandFlag>DynamicVisibility </CommandFlag>
+				<Strings>
+					<ButtonText>Generate Mapping</ButtonText>
+					<LocCanonicalName>.IncludeMinimizer.GenMap</LocCanonicalName>
+				</Strings>
+			</Button>
+		</Buttons>
+	</Commands>
+
+
+	<Symbols>
+		<GuidSymbol name="IncludeMinimizer" value="{90a4b8f6-d482-46cc-aeed-33554da13203}">
+			<IDSymbol name="IMGroup" value="0x0001" />
+			<IDSymbol name="GenMap" value="0x0100" />
+		</GuidSymbol>
+	</Symbols>
+</CommandTable>
