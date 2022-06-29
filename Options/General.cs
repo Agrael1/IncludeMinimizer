@@ -32,9 +32,8 @@ namespace IncludeMinimizer
             }
         }
 
-        public MapManager GetMap()
-        { return map; }
-       
+        [Browsable(false)]
+        public MapManager Map { get { return map; } }
 
         [Category("General")]
         [DisplayName("Relative File Prefix")]

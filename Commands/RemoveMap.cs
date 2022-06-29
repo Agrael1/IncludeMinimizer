@@ -13,8 +13,9 @@
             var settings = await General.GetLiveInstanceAsync();
             var file = Util.GetRelativePath(settings.MapFile, settings.Prefix);
 
-            settings.GetMap().TryRemoveValue(file);
-            settings.GetMap().WriteMapAsync(settings).FireAndForget();
+            settings.
+            Map.TryRemoveValue(file);
+            settings.Map.WriteMapAsync(settings).FireAndForget();
         }
     }
 }
