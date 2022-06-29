@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Community.VisualStudio.Toolkit;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
 namespace IncludeMinimizer
 {
@@ -27,7 +25,7 @@ namespace IncludeMinimizer
             get { return map_path; }
             set
             {
-                if(map_path == value || !File.Exists(value))return;
+                if (map_path == value || !File.Exists(value)) return;
                 map_path = value;
 
                 map.Load(map_path);
@@ -36,6 +34,7 @@ namespace IncludeMinimizer
 
         public MapManager GetMap()
         { return map; }
+       
 
         [Category("General")]
         [DisplayName("Relative File Prefix")]
