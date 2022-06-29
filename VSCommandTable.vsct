@@ -26,14 +26,31 @@
 					<LocCanonicalName>.IncludeMinimizer.GenMap</LocCanonicalName>
 				</Strings>
 			</Button>
+			<Button guid="IncludeMinimizer" id="RemMap" priority="0x0101" type="Button">
+				<Parent guid="IncludeMinimizer" id="IMGroup" />
+				<Icon guid="ImageCatalogGuid" id="StatusInformation" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<CommandFlag>DynamicVisibility </CommandFlag>
+				<Strings>
+					<ButtonText>Remove From Map</ButtonText>
+					<LocCanonicalName>.IncludeMinimizer.RemMap</LocCanonicalName>
+				</Strings>
+			</Button>
 		</Buttons>
 	</Commands>
 
+	<VisibilityConstraints>
+		<VisibilityItem guid="IncludeMinimizer" id="GenMap" context="GHeaderOnly"/>
+		<VisibilityItem guid="IncludeMinimizer" id="RemMap" context="GHeaderOnly"/>
+	</VisibilityConstraints>
 
 	<Symbols>
+		<GuidSymbol name="GHeaderOnly" value="{4fb708fa-a4ef-4e70-875b-9ea3ca5374b2}"/>
+
 		<GuidSymbol name="IncludeMinimizer" value="{90a4b8f6-d482-46cc-aeed-33554da13203}">
 			<IDSymbol name="IMGroup" value="0x0001" />
 			<IDSymbol name="GenMap" value="0x0100" />
+			<IDSymbol name="RemMap" value="0x0101" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>
