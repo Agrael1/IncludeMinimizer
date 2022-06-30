@@ -31,6 +31,7 @@
 				<Icon guid="ImageCatalogGuid" id="StatusInformation" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<CommandFlag>DynamicVisibility </CommandFlag>
+				<CommandFlag>DefaultInvisible </CommandFlag>
 				<Strings>
 					<ButtonText>Remove From Map</ButtonText>
 					<LocCanonicalName>.IncludeMinimizer.RemMap</LocCanonicalName>
@@ -41,7 +42,6 @@
 
 	<VisibilityConstraints>
 		<VisibilityItem guid="IncludeMinimizer" id="GenMap" context="GHeaderOnly"/>
-		<VisibilityItem guid="IncludeMinimizer" id="RemMap" context="GHeaderOnly"/>
 	</VisibilityConstraints>
 
 	<Symbols>

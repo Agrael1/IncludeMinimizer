@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace IncludeMinimizer
 {
@@ -34,6 +35,13 @@ namespace IncludeMinimizer
 
         [Browsable(false)]
         public MapManager Map { get { return map; } }
+
+        public async Task<bool> IsInMapAsync()
+        {
+            var doc = await VS.Documents.GetActiveDocumentViewAsync();
+            var str = Util.GetRelativePath(doc.FilePath, Prefix).Replace('\\', '/');
+            return map.Map.ContainsKey(str);
+        }
 
         [Category("General")]
         [DisplayName("Relative File Prefix")]

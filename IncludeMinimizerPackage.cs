@@ -2,6 +2,7 @@
 global using Microsoft.VisualStudio.Shell;
 global using System;
 global using Task = System.Threading.Tasks.Task;
+using Microsoft.VisualStudio;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -12,7 +13,7 @@ namespace IncludeMinimizer
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuids.IncludeMinimizerString)]
     [ProvideOptionPage(typeof(OptionsProvider.General1Options), "Include Minimizer", "General", 0, 0, true, SupportsProfiles = true)]
-    [ProvideAutoLoad(PackageGuids.GHeaderOnlyString, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionOpening_string, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideUIContextRule(PackageGuids.GHeaderOnlyString, "UIOnlyHeader",
     expression: "userWantsToSeeIt",
     termNames: new[] { "userWantsToSeeIt" },

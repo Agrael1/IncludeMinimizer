@@ -43,8 +43,7 @@ namespace IncludeMinimizer
                 file_map += string.Format("\t{{ include: [ \"{0}\", public, \"<{1}>\", public ] }},\n", match.Replace('\\', '/'), relative_path);
             settings.Map.Map[relative_path] = file_map;
 
-            settings.
-            Map.WriteMapAsync(settings).FireAndForget();
+            settings.Map.WriteMapAsync(settings).FireAndForget();
         }
     }
 }
