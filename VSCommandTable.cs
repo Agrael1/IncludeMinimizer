@@ -26,5 +26,6 @@ namespace IncludeMinimizer
         public const int IMGroup = 0x0001;
         public const int GenMap = 0x0100;
         public const int RemMap = 0x0101;
+        public const int RunIWYU = 0x0102;
     }
 }

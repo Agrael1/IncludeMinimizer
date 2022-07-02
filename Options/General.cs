@@ -9,7 +9,7 @@ namespace IncludeMinimizer
     internal partial class OptionsProvider
     {
         [ComVisible(true)]
-        public class General1Options : BaseOptionPage<General> { }
+        public class XMapGenOptions : BaseOptionPage<General> { }
     }
 
     public class General : BaseOptionModel<General>
@@ -26,7 +26,7 @@ namespace IncludeMinimizer
             get { return map_path; }
             set
             {
-                if (map_path == value || !File.Exists(value)) return;
+                if (map_path == value) return;
                 map_path = value;
 
                 map.Load(map_path);

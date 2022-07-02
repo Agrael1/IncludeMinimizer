@@ -45,8 +45,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\RunIWYU.cs" />
     <Compile Include="Commands\RemoveMap.cs" />
     <Compile Include="Options\General.cs" />
+    <Compile Include="Options\IWYUOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands\GenMap.cs" />
     <Compile Include="IncludeMinimizerPackage.cs" />
@@ -55,7 +57,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
+    <Compile Include="Util\IWYU.cs" />
     <Compile Include="Util\MapManager.cs" />
+    <Compile Include="Util\Output.cs" />
     <Compile Include="Util\Util.cs" />
     <Compile Include="VSCommandTable.cs">
       <AutoGen>True</AutoGen>

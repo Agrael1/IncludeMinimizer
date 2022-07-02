@@ -38,7 +38,7 @@ namespace IncludeMinimizer
 
             if (!sresult.Any()) return;
 
-            string file_map = "";
+            string file_map = string.Format("\t{{ include: [ \"\\\"{0}\\\"\", private, \"<{0}>\", public ] }},\n", relative_path); ;
             foreach (var match in sresult)
                 file_map += string.Format("\t{{ include: [ \"{0}\", public, \"<{1}>\", public ] }},\n", match.Replace('\\', '/'), relative_path);
             settings.Map.Map[relative_path] = file_map;

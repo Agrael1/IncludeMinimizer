@@ -46,11 +46,7 @@ namespace IncludeMinimizer
 
             foreach (var f in array)
                 await f;
-            string x = "";
-            foreach (var f in map.Keys)
-                x += string.Format("\t{{ include: [ \"\\\"{0}\\\"\", private, \"<{0}>\", public ] }},\n", f);
 
-            await file.WriteAsync(Encoding.ASCII.GetBytes(x), 0, x.Length);
             await file.WriteAsync(Encoding.ASCII.GetBytes("]\n"), 0, 2);
 
             file.Close();
