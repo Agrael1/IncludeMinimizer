@@ -61,6 +61,7 @@
     <Compile Include="Util\MapManager.cs" />
     <Compile Include="Util\Output.cs" />
     <Compile Include="Util\Util.cs" />
+    <Compile Include="Util\VCUtil.cs" />
     <Compile Include="VSCommandTable.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,6 +90,7 @@
     <Reference Include="System" />
     <Reference Include="System.Design" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Community.VisualStudio.VSCT" Version="16.0.29.6" PrivateAssets="all" />

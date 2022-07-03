@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Community.VisualStudio.Toolkit;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using static IncludeMinimizer.OptionsProvider;
 
 namespace IncludeMinimizer
 {
@@ -8,6 +12,8 @@ namespace IncludeMinimizer
     {
         Process process = new Process();
         string output = "";
+        string command_line = "";
+        string support_path = "";
 
         public IWYU()
         {
@@ -41,14 +47,37 @@ namespace IncludeMinimizer
             }
             args.Add(string.Format("--verbose={0}", settings.Verbosity));
 
-            
-            process.StartInfo.Arguments = string.Join(" ", args.Select(x => " -Xiwyu " + x));
+            if (settings.Precompiled)
+                args.Add("--pch_in_code");
+            if (settings.Transitives)
+                args.Add("--transitive_includes_only");
+            if (settings.NoDefault)
+                args.Add("--no_default_mappings");
+            if (settings.MappingFile != "")
+                args.Add(string.Format("--mapping_file=\"{0}\"", settings.MappingFile));
+            args.Add("--max_line_length=256"); // output line for commentaries
+
+            command_line =
+                string.Join(" ", args.Select(x => " -Xiwyu " + x));
+
+            if (settings.ClangOptions != null && settings.ClangOptions?.Count() != 0)
+                command_line += " " + string.Join(" ", settings.ClangOptions);
+            if (settings.Options != null && settings.Options.Count() != 0)
+                command_line += " " + string.Join(" ", settings.Options.Select(x => " -Xiwyu " + x));
             settings.ClearFlag();
         }
 
-        public string Start(string file)
+        public async Task<string> StartAsync(string file)
         {
             output = "";
+            var cmd = await VCUtil.GetCommandLineAsync();
+            if (cmd == null) return null;
+            if (cmd != "")
+            {
+                support_path = Path.GetTempFileName();
+                File.WriteAllText(support_path, cmd);
+            }
+            process.StartInfo.Arguments = $"{command_line} \"@{support_path}\" {file}";
 
             Output.WriteLineAsync(string.Format("Running command '{0}' with following arguments:\n{1}\n\n", process.StartInfo.FileName, process.StartInfo.Arguments)).FireAndForget();
 
@@ -59,6 +88,8 @@ namespace IncludeMinimizer
             process.WaitForExit();
             process.CancelOutputRead();
             process.CancelErrorRead();
+
+            Output.WriteLineAsync(output).FireAndForget();
             return output;
         }
         public async Task CancelAsync()

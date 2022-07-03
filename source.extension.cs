@@ -11,7 +11,7 @@ namespace IncludeMinimizer
         public const string Name = "Include Minimizer";
         public const string Description = @"Empty VSIX Project.";
         public const string Language = "en-US";
-        public const string Version = "1.0";
+        public const string Version = "0.2";
         public const string Author = "Ilya Doroshenko";
         public const string Tags = "";
     }

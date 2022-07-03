@@ -29,6 +29,9 @@ namespace IncludeMinimizer.Commands
         {
             var settings = await IWYUOptions.GetLiveInstanceAsync();
             if(settings.Executable == "" || !File.Exists(settings.Executable))return;
+            var doc = await VS.Documents.GetActiveDocumentViewAsync();
+            if (doc == null) return;
+
 
             if (settings.Dirty) proc.BuildCommandLine(settings);
 
@@ -41,9 +44,10 @@ namespace IncludeMinimizer.Commands
             
             dialog.StartWaitDialogWithCallback("Include Minimizer", "Running include-what-you-use", null, null, "Running include-what-you-use", true, 0, true, 0, 0, cancelCallback);
 
-            proc.Start(settings.Executable);
+            var result = await proc.StartAsync(doc.FilePath);
 
-            if(dialog.EndWaitDialog())return;
+            if(dialog.EndWaitDialog() || result == null)return;
+
 
             //Process Output
         }

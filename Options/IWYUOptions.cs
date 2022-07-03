@@ -1,5 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Drawing.Design;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace IncludeMinimizer
 {
@@ -14,6 +19,12 @@ namespace IncludeMinimizer
         string exe = "";
         Comment comm = Comment.Default;
         uint verbose = 2;
+        bool pch = false;
+        bool nodefault = false;
+        bool transitives = false;
+        string mapping = "";
+        string[] clang_options = new string[] { };
+        string[] iwyu_options = new string[] { };
 
         [Browsable(false)]
         public bool Dirty { get; private set; }
@@ -32,8 +43,6 @@ namespace IncludeMinimizer
             }
         }
 
-
-
         [Category("General")]
         [DisplayName("Print Commentaries")]
         [Description("Tells IWYU to show or hide individual commentaries to headers.")]
@@ -46,6 +55,41 @@ namespace IncludeMinimizer
         [Description("Determines how much output needs to be printed. May help in case of error. Max value is 7.")]
         [DefaultValue(2)]
         public uint Verbosity{ get { return verbose; } set { Dirty = true; verbose = Math.Min(value, 7); } }
+
+        [Category("General")]
+        [DisplayName("Precompiled Header")]
+        [Description("Sets if first file in .cpp is precompiled header. Blocks first file from being parsed.")]
+        [DefaultValue(false)]
+        public bool Precompiled { get { return pch; } set { Dirty = true; pch = value; } }
+        
+        [Category("General")]
+        [DisplayName("No Default Maps")]
+        [Description("If true, turns default gcc iwyu STL bindings off. Useful for STL map implementation.")]
+        [DefaultValue(false)]
+        public bool NoDefault { get { return nodefault; } set { Dirty = true; nodefault = value; } }
+        
+        [Category("General")]
+        [DisplayName("Only Transitive")]
+        [Description("Do not suggest that a file add foo.h unless foo.h is already visible in the file's transitive includes.")]
+        [DefaultValue(false)]
+        public bool Transitives { get { return transitives; } set { Dirty = true; transitives = value; } }
+
+        [Category("Options")]
+        [DisplayName("IWYU options")]
+        [Description("IWYU launch options, that determine the flow of include-what-you-use.")]
+        public string[] Options { get { return iwyu_options; } set { iwyu_options = value; Dirty = true; } }
+
+        [Category("Options")]
+        [DisplayName("Clang options")]
+        [Description("Clang launch options, that determine compilation stage flow.")]
+        public string[] ClangOptions { get { return clang_options; } set { clang_options = value; Dirty = true; } }
+        
+        [Category("Options")]
+        [DisplayName("Mapping File")]
+        [Description("Specifies the mapping file to use by iwyu.")]
+        [DefaultValue("")]
+        public string MappingFile { get { return mapping; } set { mapping = value; Dirty = true; } }
+
 
         public void ClearFlag()
         {
