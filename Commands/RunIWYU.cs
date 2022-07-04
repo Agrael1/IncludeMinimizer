@@ -21,6 +21,7 @@ namespace IncludeMinimizer.Commands
 
         protected override Task InitializeCompletedAsync()
         {
+            Command.Supported = false;
             cancelCallback.cancel = delegate { proc.CancelAsync().FireAndForget(); };
             return base.InitializeCompletedAsync();
         }
@@ -44,12 +45,11 @@ namespace IncludeMinimizer.Commands
             
             dialog.StartWaitDialogWithCallback("Include Minimizer", "Running include-what-you-use", null, null, "Running include-what-you-use", true, 0, true, 0, 0, cancelCallback);
 
-            var result = await proc.StartAsync(doc.FilePath);
+            var result = await proc.StartAsync(doc.FilePath, settings.AlwaysRebuid);
 
-            if(dialog.EndWaitDialog() || result == null)return;
+            if(dialog.EndWaitDialog() || result == false)return;
 
-
-            //Process Output
+            await proc.ApplyAsync();
         }
     }
 }

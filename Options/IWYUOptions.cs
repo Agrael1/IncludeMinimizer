@@ -22,6 +22,8 @@ namespace IncludeMinimizer
         bool pch = false;
         bool nodefault = false;
         bool transitives = false;
+        bool warn = false;
+        bool always = false;
         string mapping = "";
         string[] clang_options = new string[] { };
         string[] iwyu_options = new string[] { };
@@ -72,7 +74,19 @@ namespace IncludeMinimizer
         [DisplayName("Only Transitive")]
         [Description("Do not suggest that a file add foo.h unless foo.h is already visible in the file's transitive includes.")]
         [DefaultValue(false)]
-        public bool Transitives { get { return transitives; } set { Dirty = true; transitives = value; } }
+        public bool Transitives { get { return transitives; } set { Dirty = true; transitives = value; } }        
+        
+        [Category("General")]
+        [DisplayName("Show Warnings")]
+        [Description("Shows warnings from IWYU compiler.")]
+        [DefaultValue(false)]
+        public bool Warnings { get { return warn; } set { Dirty = true; warn = value; } }        
+        
+        [Category("General")]
+        [DisplayName("Always Rebuild")]
+        [Description("Rebuild the project command line on each call. Good for dynamic projects, that may change their options.")]
+        [DefaultValue(false)]
+        public bool AlwaysRebuid { get { return always; } set { Dirty = true; always = value; } }
 
         [Category("Options")]
         [DisplayName("IWYU options")]

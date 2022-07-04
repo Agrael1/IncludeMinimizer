@@ -14,6 +14,10 @@ namespace IncludeMinimizer
         string output = "";
         string command_line = "";
         string support_path = "";
+        string support_cpp_path = "";
+
+        readonly string match = "The full include-list for ";
+
 
         public IWYU()
         {
@@ -60,6 +64,10 @@ namespace IncludeMinimizer
             command_line =
                 string.Join(" ", args.Select(x => " -Xiwyu " + x));
 
+            if (!settings.Warnings)
+                command_line += " -w";
+
+            command_line += " -Wno-invalid-token-paste -fms-compatibility -fms-extensions -fdelayed-template-parsing";
             if (settings.ClangOptions != null && settings.ClangOptions?.Count() != 0)
                 command_line += " " + string.Join(" ", settings.ClangOptions);
             if (settings.Options != null && settings.Options.Count() != 0)
@@ -67,15 +75,65 @@ namespace IncludeMinimizer
             settings.ClearFlag();
         }
 
-        public async Task<string> StartAsync(string file)
+        public async Task ApplyAsync()
+        {
+            if (output == "") return;
+
+            while (true)
+            {
+                int pos = output.IndexOf(match);
+                if (pos == -1) return;
+
+
+                pos = pos + match.Length;
+                string part = output.Substring(pos);
+                string path = part.Substring(0, part.IndexOf(':', 3));
+
+                int end_index = part.IndexOf("---"); //IWYU ends statement with ---
+
+                int start_index = part.IndexOf('\n') + 1;
+                var inc = part.Substring(start_index, end_index - start_index);
+                var doc = await VS.Documents.OpenAsync(path);
+                var edit = doc.TextBuffer.CreateEdit();
+                var text = edit.Snapshot.GetText();
+
+                int a = text.IndexOf("#include");
+                int b = text.LastIndexOf("#include");
+                b = text.IndexOf('\n', b);
+
+                if (a != -1 && b != -1)
+                {
+                    edit.Replace(new Microsoft.VisualStudio.Text.Span(a, b - a), inc);
+                }
+                else if (a == -1)
+                {
+                    edit.Insert(0, inc);
+                }
+                else if (b == -1)
+                {
+                    edit.Replace(new Microsoft.VisualStudio.Text.Span(a, text.Length - a), inc);
+                }
+                edit.Apply();
+                output = output.Substring(end_index + pos);
+            }
+        }
+        public async Task<bool> StartAsync(string file, bool rebuild)
         {
             output = "";
-            var cmd = await VCUtil.GetCommandLineAsync();
-            if (cmd == null) return null;
+            var cmd = await VCUtil.GetCommandLineAsync(rebuild);
+            if (cmd == null) return false;
             if (cmd != "")
             {
                 support_path = Path.GetTempFileName();
                 File.WriteAllText(support_path, cmd);
+            }
+            var ext = Path.GetExtension(file);
+            if (ext == ".h" || ext == ".hpp")
+            {
+                if (support_cpp_path == "") { support_cpp_path = Path.ChangeExtension(Path.GetTempFileName(), ".cpp"); }
+                File.WriteAllText(support_cpp_path, "#include \"" + file + "\"");
+                file = " -Xiwyu --check_also=" + file;
+                file += " \"" + support_cpp_path.Replace("\\", "\\\\") + "\"";
             }
             process.StartInfo.Arguments = $"{command_line} \"@{support_path}\" {file}";
 
@@ -90,7 +148,7 @@ namespace IncludeMinimizer
             process.CancelErrorRead();
 
             Output.WriteLineAsync(output).FireAndForget();
-            return output;
+            return true;
         }
         public async Task CancelAsync()
         {

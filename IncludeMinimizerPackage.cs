@@ -20,6 +20,11 @@ namespace IncludeMinimizer
     termNames: new[] { "userWantsToSeeIt" },
     termValues: new[] { @"HierSingleSelectionName:.(h|hpp|hxx)$" }
 )]
+    [ProvideUIContextRule(PackageGuids.GOnlyVCString, "UIOnlyVC",
+    expression: "one & two",
+    termNames: new[] { "one", "two" },
+    termValues: new[] { @"ActiveProjectCapability:VisualC", @"HierSingleSelectionName:.(h|hpp|hxx|cpp|c|cxx)$" }
+)]
     public sealed class IncludeMinimizerPackage : ToolkitPackage
     {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)

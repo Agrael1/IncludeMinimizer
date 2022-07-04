@@ -37,12 +37,12 @@ namespace IncludeMinimizer
             return includes.Select(x => Path.GetFullPath(x.Trim()).Replace('\\', '/')).ToList();
         }
 
-        public static async Task<string> GetCommandLineAsync()
+        public static async Task<string> GetCommandLineAsync(bool rebuild)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var prj = await GetProjectAsync();
 
-            if (cached_project == prj)
+            if (cached_project == prj && !rebuild)
                 return "";
 
             cached_project = prj;

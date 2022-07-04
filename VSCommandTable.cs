@@ -15,6 +15,9 @@ namespace IncludeMinimizer
         public const string GHeaderOnlyString = "4fb708fa-a4ef-4e70-875b-9ea3ca5374b2";
         public static Guid GHeaderOnly = new Guid(GHeaderOnlyString);
 
+        public const string GOnlyVCString = "efd13c2b-5e41-40d2-95df-4576ef0444e4";
+        public static Guid GOnlyVC = new Guid(GOnlyVCString);
+
         public const string IncludeMinimizerString = "90a4b8f6-d482-46cc-aeed-33554da13203";
         public static Guid IncludeMinimizer = new Guid(IncludeMinimizerString);
     }

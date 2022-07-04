@@ -44,6 +44,7 @@
 				<Icon guid="ImageCatalogGuid" id="StatusInformation" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<CommandFlag>DynamicVisibility </CommandFlag>
+				<CommandFlag>DefaultInvisible </CommandFlag>
 				<Strings>
 					<ButtonText>Run Include-What-You-Use</ButtonText>
 					<LocCanonicalName>.IncludeMinimizer.RunIWYU</LocCanonicalName>
@@ -54,10 +55,12 @@
 
 	<VisibilityConstraints>
 		<VisibilityItem guid="IncludeMinimizer" id="GenMap" context="GHeaderOnly"/>
+		<VisibilityItem guid="IncludeMinimizer" id="RunIWYU" context="GOnlyVC"/>
 	</VisibilityConstraints>
 
 	<Symbols>
 		<GuidSymbol name="GHeaderOnly" value="{4fb708fa-a4ef-4e70-875b-9ea3ca5374b2}"/>
+		<GuidSymbol name="GOnlyVC" value="{efd13c2b-5e41-40d2-95df-4576ef0444e4}"/>
 
 		<GuidSymbol name="IncludeMinimizer" value="{90a4b8f6-d482-46cc-aeed-33554da13203}">
 			<IDSymbol name="IMGroup" value="0x0001" />
