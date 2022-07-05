@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.Threading;
-using System.Threading.Tasks;
-
-namespace IncludeMinimizer.Commands
+﻿namespace IncludeMinimizer.Commands
 {
     [Command(PackageIds.RemMap)]
     internal sealed class RemoveMap : BaseCommand<RemoveMap>

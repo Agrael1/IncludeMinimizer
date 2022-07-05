@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Drawing.Design;
-using System.IO;
+﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
 namespace IncludeMinimizer
 {

@@ -1,11 +1,5 @@
-﻿using Microsoft.VisualStudio.Text.Differencing;
-using Microsoft.VisualStudio.Threading;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Text.RegularExpressions;
-using static Microsoft.VisualStudio.Threading.AsyncReaderWriterLock;
 
 namespace IncludeMinimizer
 {

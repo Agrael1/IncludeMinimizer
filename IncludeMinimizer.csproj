@@ -47,6 +47,11 @@
   <ItemGroup>
     <Compile Include="Commands\RunIWYU.cs" />
     <Compile Include="Commands\RemoveMap.cs" />
+    <Compile Include="ImageIds.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageIds.vsct</DependentUpon>
+    </Compile>
     <Compile Include="Options\General.cs" />
     <Compile Include="Options\IWYUOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,15 +74,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Monikers.imagemanifest">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ImageIds.vsct">
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>ImageIds.cs</LastGenOutput>
+    </Content>
+    <Resource Include="Resources\min2.png" />
+    <Resource Include="Resources\InlcudeMinimizer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>
       <LastGenOutput>source.extension.cs</LastGenOutput>
     </None>
-    <Content Include="Resources\Icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <VSCTCompile Include="VSCommandTable.vsct">

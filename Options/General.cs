@@ -1,6 +1,4 @@
-﻿using Community.VisualStudio.Toolkit;
-using System.ComponentModel;
-using System.IO;
+﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
