@@ -26,6 +26,19 @@ namespace IncludeMinimizer.Commands
             return base.InitializeCompletedAsync();
         }
 
+        async Task SaveAllDocumentsAsync()
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            try
+            {
+                VCUtil.GetDTE().Documents.SaveAll();
+            }
+            catch (Exception e)
+            {
+                Output.WriteLineAsync($"Failed to get save all documents: {e.Message}").FireAndForget();
+            }
+        }
+
         protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
         {
             var settings = await IWYUOptions.GetLiveInstanceAsync();
@@ -38,7 +51,8 @@ namespace IncludeMinimizer.Commands
 
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var dlg = (IVsThreadedWaitDialogFactory)await VS.Services.GetThreadedWaitDialogAsync();
-            (await VS.Documents.GetActiveDocumentViewAsync()).Document.Save(); //autosave the current doc
+
+            await SaveAllDocumentsAsync();
 
             IVsThreadedWaitDialog2 xdialog;
             dlg.CreateInstance(out xdialog);
