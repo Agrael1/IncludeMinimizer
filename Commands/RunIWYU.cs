@@ -38,6 +38,7 @@ namespace IncludeMinimizer.Commands
 
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var dlg = (IVsThreadedWaitDialogFactory)await VS.Services.GetThreadedWaitDialogAsync();
+            (await VS.Documents.GetActiveDocumentViewAsync()).Document.Save(); //autosave the current doc
 
             IVsThreadedWaitDialog2 xdialog;
             dlg.CreateInstance(out xdialog);
