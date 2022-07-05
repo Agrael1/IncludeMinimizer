@@ -42,7 +42,7 @@
 
 			<Button guid="IncludeMinimizer" id="RunIWYU" priority="0x0102" type="Button">
 				<Parent guid="IncludeMinimizer" id="IMGroup" />
-				<Icon guid="MonikersGuid" id="min2" />
+				<Icon guid="MonikersGuid" id="hash" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<CommandFlag>DynamicVisibility </CommandFlag>
 				<CommandFlag>DefaultInvisible </CommandFlag>

@@ -9,9 +9,9 @@ namespace IncludeMinimizer
     {
         public const string Id = "IncludeMinimizer.b6db3f9a-e033-4605-82de-65628de5c510";
         public const string Name = "Include Minimizer";
-        public const string Description = @"A C/C++ include header reduction tool.A";
+        public const string Description = @"A C/C++ include header reduction tool.";
         public const string Language = "en-US";
-        public const string Version = "0.3";
+        public const string Version = "0.4.1";
         public const string Author = "Ilya Doroshenko";
         public const string Tags = "C++, C, Include, Refactoring, Tool";
     }

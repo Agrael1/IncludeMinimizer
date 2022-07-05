@@ -47,11 +47,6 @@
   <ItemGroup>
     <Compile Include="Commands\RunIWYU.cs" />
     <Compile Include="Commands\RemoveMap.cs" />
-    <Compile Include="ImageIds.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ImageIds.vsct</DependentUpon>
-    </Compile>
     <Compile Include="Options\General.cs" />
     <Compile Include="Options\IWYUOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,17 +69,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Monikers.imagemanifest">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ImageIds.vsct">
-      <Generator>VsctGenerator</Generator>
-      <LastGenOutput>ImageIds.cs</LastGenOutput>
-    </Content>
-    <Resource Include="Resources\min2.png" />
-    <Resource Include="Resources\InlcudeMinimizer.png">
+    <Resource Include="Resources\hash.png" />
+    <Content Include="Resources\InlcudeMinimizer.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>
